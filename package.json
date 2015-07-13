@@ -1,0 +1,52 @@
+{
+  "name": "rss-reader",
+  "version": "0.1.0",
+  "description": "Online, responsive, RSS-reader web application",
+  "main": "gulpfile.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://valyonbalazs@github.com/valyonbalazs/rss_reader.git"
+  },
+  "author": "Balazs Valyon",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/valyonbalazs/rss_reader/issues"
+  },
+  "homepage": "https://github.com/valyonbalazs/rss_reader#readme",
+  "dependencies": {
+    "bluebird": "^2.9.30",
+    "body-parser": "^1.13.1",
+    "chai": "^3.0.0",
+    "del": "^1.2.0",
+    "express": "^4.13.0",
+    "gulp": "^3.9.0",
+    "gulp-concat": "^2.6.0",
+    "gulp-connect": "^2.2.0",
+    "gulp-karma": "0.0.4",
+    "gulp-minify-html": "^1.0.3",
+    "gulp-mocha": "^2.1.2",
+    "gulp-plumber": "^1.0.1",
+    "gulp-sass": "^2.0.3",
+    "gulp-sourcemaps": "^1.5.2",
+    "gulp-uglify": "^1.2.0",
+    "gulp-util": "^3.0.6",
+    "karma": "^0.12.37",
+    "karma-chai": "^0.1.0",
+    "karma-html-reporter": "^0.2.6",
+    "karma-mocha": "^0.2.0",
+    "karma-mocha-reporter": "^1.0.2",
+    "karma-phantomjs-launcher": "^0.2.0",
+    "mocha": "^2.2.5",
+    "phantomjs": "^1.9.17",
+    "run-sequence": "^1.1.1",
+    "superagent": "^1.2.0"
+  },
+  "keywords": [
+    "rss-reader",
+    "responsive",
+    "web",
+    "web",
+    "application",
+    "application"
+  ]
+}
