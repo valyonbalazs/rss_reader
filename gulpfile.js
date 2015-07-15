@@ -14,49 +14,49 @@ var mocha = require('gulp-mocha');
 var karma = require('gulp-karma');
 
 //------------------------------------------------------------------------------
-//Defining DIRectories
-var dir = {};
-dir.client = {};
-dir.client.root = './client/';
-dir.client.html = dir.client.root + 'html/';
-dir.client.js = dir.client.root + 'js/';
-dir.client.jslib = dir.client.root + 'lib/';
-dir.client.scss = dir.client.root + 'scss/';
-dir.dest = {};
-dir.dest.build = './build/';
-dir.dest.js = dir.dest.build + 'js/';
-dir.dest.img = dir.dest.build + 'img/';
-dir.dest.css = dir.dest.build + 'css/';
-dir.test = {};
-dir.test.root = './test/';
-dir.test.api = dir.test.root + 'api/';
-dir.test.browser = dir.test.root + 'browser/';
+//Defining directories
+var directory = {};
+directory.client = {};
+directory.client.root = './client/';
+directory.client.html = directory.client.root + 'html/';
+directory.client.js = directory.client.root + 'js/';
+directory.client.jslib = directory.client.root + 'lib/';
+directory.client.scss = directory.client.root + 'scss/';
+directory.dest = {};
+directory.dest.build = './build/';
+directory.dest.js = directory.dest.build + 'js/';
+directory.dest.img = directory.dest.build + 'img/';
+directory.dest.css = directory.dest.build + 'css/';
+directory.test = {};
+directory.test.root = './test/';
+directory.test.api = directory.test.root + 'api/';
+directory.test.browser = directory.test.root + 'browser/';
 
 //------------------------------------------------------------------------------
 //Defining file EXTensions
-var ext = {};
-ext.html = '**/*.{htm,html}';
-ext.js = '**/*.js';
-ext.css = '**/*.css';
-ext.scss = '**/*.scss';
-ext.bundle = 'bundle.js';
+var extension = {};
+extension.html = '**/*.{htm,html}';
+extension.js = '**/*.js';
+extension.css = '**/*.css';
+extension.scss = '**/*.scss';
+extension.bundle = 'bundle.js';
 
 //------------------------------------------------------------------------------
 //Defining specific files in specific folders
 var files = {};
-files.html = dir.client.html + ext.html;
-files.js = dir.client.js + ext.js;
-files.jslib = dir.client.jslib + ext.js;
-files.scss = dir.client.scss + ext.scss;
+files.html = directory.client.html + extension.html;
+files.js = directory.client.js + extension.js;
+files.jslib = directory.client.jslib + extension.js;
+files.scss = directory.client.scss + extension.scss;
 files.test = {};
-files.test.api = dir.test.api + ext.js;
-files.test.browser = dir.test.browser + ext.js;
+files.test.api = directory.test.api + extension.js;
+files.test.browser = directory.test.browser + extension.js;
 
 //------------------------------------------------------------------------------
 //Defining Gulp-tasks, which are the steps of the building-process
 
 gulp.task('clean', function (cb) {
-  return del([dir.dest.build], cb);
+  return del([directory.dest.build], cb);
 });
 
 gulp.task('copy:html', function () {
@@ -66,7 +66,7 @@ gulp.task('copy:html', function () {
       conditionals: true,
       spare: true
     }))
-    .pipe(gulp.dest(dir.dest.build))
+    .pipe(gulp.dest(directory.dest.build))
     .pipe(connect.reload());
 });
 
@@ -76,20 +76,20 @@ gulp.task('build:css', function () {
     .pipe(sourcemaps.init())
     .pipe(sass().on('error', sass.logError))
     .pipe(sourcemaps.write('.'))
-    .pipe(gulp.dest(dir.dest.css))
+    .pipe(gulp.dest(directory.dest.css))
     .pipe(connect.reload());
 });
 
 gulp.task('copy:js-lib', function () {
   return gulp.src([files.jslib])
-    .pipe(gulp.dest(dir.dest.js));
+    .pipe(gulp.dest(directory.dest.js));
 });
 
 gulp.task('build:js', function () {
   return gulp.src([files.js])
     .pipe(plumber())
     .pipe(uglify())
-    .pipe(gulp.dest(dir.dest.js))
+    .pipe(gulp.dest(directory.dest.js))
     .pipe(connect.reload());
 });
 
@@ -104,7 +104,7 @@ gulp.task('build', function (cb) {
 
 gulp.task('connect', function () {
   connect.server({
-    root: [dir.dest.build],
+    root: [directory.dest.build],
     port: 80,
     livereload: true
   });
