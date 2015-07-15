@@ -48,5 +48,10 @@
     "web",
     "application",
     "application"
-  ]
+  ],
+  "devDependencies": {
+    "gulp-babel": "^5.1.0",
+    "gulp-minify": "0.0.5",
+    "gulp-rename": "^1.2.2"
+  }
 }

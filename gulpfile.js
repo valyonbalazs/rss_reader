@@ -1,32 +1,42 @@
 //Gulp plugins from NPM
-var gulp = require('gulp');
-var runSequence = require('run-sequence');
-var plumber = require('gulp-plumber');
-var del = require('del');
-var minifyHTML = require('gulp-minify-html');
-var sourcemaps = require('gulp-sourcemaps');
-var sass = require('gulp-sass');
+var babel = require('gulp-babel');
 var concat = require('gulp-concat');
-var uglify = require('gulp-uglify');
 var connect = require('gulp-connect');
-var util = require('gulp-util');
-var mocha = require('gulp-mocha');
+var del = require('del');
+var gulp = require('gulp');
 var karma = require('gulp-karma');
+var minify = require('gulp-minify');
+var minifyHTML = require('gulp-minify-html');
+var mocha = require('gulp-mocha');
+var plumber = require('gulp-plumber');
+var rename = require('gulp-rename');
+var runSequence = require('run-sequence');
+var sass = require('gulp-sass');
+var sourcemaps = require('gulp-sourcemaps');
+var uglify = require('gulp-uglify');
+var util = require('gulp-util');
+
 
 //------------------------------------------------------------------------------
 //Defining directories
+
 var directory = {};
+//FROM
 directory.client = {};
 directory.client.root = './client/';
 directory.client.html = directory.client.root + 'html/';
 directory.client.js = directory.client.root + 'js/';
-directory.client.jslib = directory.client.root + 'lib/';
+directory.client.jslib = directory.client.root + 'jslib/';
 directory.client.scss = directory.client.root + 'scss/';
+
+//TO (destination)
 directory.dest = {};
 directory.dest.build = './build/';
 directory.dest.js = directory.dest.build + 'js/';
 directory.dest.img = directory.dest.build + 'img/';
 directory.dest.css = directory.dest.build + 'css/';
+
+//TESTING
 directory.test = {};
 directory.test.root = './test/';
 directory.test.api = directory.test.root + 'api/';
@@ -43,6 +53,10 @@ extension.bundle = 'bundle.js';
 
 //------------------------------------------------------------------------------
 //Defining specific files in specific folders
+//A file is: directory/*.extension, such as: ./client/html/**/*.html
+//files.js: my javascript files
+//files.jslib: external javascript libraries, dependencies
+
 var files = {};
 files.html = directory.client.html + extension.html;
 files.js = directory.client.js + extension.js;
@@ -55,6 +69,7 @@ files.test.browser = directory.test.browser + extension.js;
 //------------------------------------------------------------------------------
 //Defining Gulp-tasks, which are the steps of the building-process
 
+//The old dev and build files must be cleaned, deleted before every build
 gulp.task('clean', function (cb) {
   return del([directory.dest.build], cb);
 });
@@ -82,13 +97,19 @@ gulp.task('build:css', function () {
 
 gulp.task('copy:js-lib', function () {
   return gulp.src([files.jslib])
+    .pipe(babel())
+    .pipe(minify())
     .pipe(gulp.dest(directory.dest.js));
 });
 
 gulp.task('build:js', function () {
   return gulp.src([files.js])
     .pipe(plumber())
+    .pipe(babel())
+    .pipe(concat('all.js'))
     .pipe(uglify())
+    .pipe(minify())
+    .pipe(rename('all.min.js'))
     .pipe(gulp.dest(directory.dest.js))
     .pipe(connect.reload());
 });
