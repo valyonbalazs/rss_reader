@@ -32,7 +32,9 @@ directory.client.scss = directory.client.root + 'scss/';
 //TO (destination)
 directory.dest = {};
 directory.dest.build = './build/';
+directory.dest.html = directory.dest.build + 'html/';
 directory.dest.js = directory.dest.build + 'js/';
+directory.dest.jslib = directory.dest.build + 'jslib/';
 directory.dest.img = directory.dest.build + 'img/';
 directory.dest.css = directory.dest.build + 'css/';
 
@@ -81,7 +83,7 @@ gulp.task('copy:html', function () {
       conditionals: true,
       spare: true
     }))
-    .pipe(gulp.dest(directory.dest.build))
+    .pipe(gulp.dest(directory.dest.html))
     .pipe(connect.reload());
 });
 
@@ -98,8 +100,7 @@ gulp.task('build:css', function () {
 gulp.task('copy:js-lib', function () {
   return gulp.src([files.jslib])
     .pipe(babel())
-    .pipe(minify())
-    .pipe(gulp.dest(directory.dest.js));
+    .pipe(gulp.dest(directory.dest.jslib));
 });
 
 gulp.task('build:js', function () {
