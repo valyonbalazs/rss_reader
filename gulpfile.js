@@ -4,6 +4,7 @@ var concat = require('gulp-concat');
 var connect = require('gulp-connect');
 var del = require('del');
 var gulp = require('gulp');
+var jscs = require('gulp-jscs');
 var jshint = require('gulp-jshint');
 var karma = require('gulp-karma');
 var minify = require('gulp-minify');
@@ -77,11 +78,17 @@ gulp.task('clean', function (cb) {
   return del([directory.dest.build], cb);
 });
 
+gulp.task('jscs', function() {
+  return gulp.src([files.js])
+    .pipe(jscs());
+});
+
 //Syntax check of the js files with JSHint
 gulp.task('lint', function() {
   return gulp.src([files.js])
     .pipe(jshint())
-    .pipe(jshint.reporter('default'));
+    .pipe(jshint.reporter('jshint-stylish'))
+    .pipe(jshint.reporter('fail'));
 });
 
 gulp.task('copy:html', function () {
@@ -127,7 +134,7 @@ gulp.task('build:js', function () {
 gulp.task('build', function (cb) {
   runSequence(
     'clean',
-    'lint',
+    ['jscs', 'lint'],
     ['build:css','build:js'],
     ['copy:html','copy:js-lib'],
     cb
