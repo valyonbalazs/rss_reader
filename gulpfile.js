@@ -14,6 +14,7 @@ var plumber = require('gulp-plumber');
 var rename = require('gulp-rename');
 var runSequence = require('run-sequence');
 var sass = require('gulp-sass');
+var size = require('gulp-size');
 var sourcemaps = require('gulp-sourcemaps');
 var uglify = require('gulp-uglify');
 var util = require('gulp-util');
@@ -110,6 +111,7 @@ gulp.task('build:css', function () {
     .pipe(concat('all.css'))
     .pipe(sourcemaps.write('.'))
     .pipe(gulp.dest(directory.dest.css))
+    .pipe(size({"title": "Concatenated CSS file size is "}))
     .pipe(connect.reload());
 });
 
@@ -128,6 +130,7 @@ gulp.task('build:js', function () {
     .pipe(minify())
     .pipe(rename('all.min.js'))
     .pipe(gulp.dest(directory.dest.js))
+    .pipe(size({"title": "Concatenated JAVASCRIPT file size is "}))
     .pipe(connect.reload());
 });
 
