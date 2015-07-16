@@ -1,5 +1,11 @@
 # rss_reader
 
+### Purpose of the project
+This is a tech-demo project with studying purpose for myself, which consist of
+* Gulp-based build system
+* Frontend test-system based on Karma and mocha
+* Frontend client structure based on ReactJs
+
 ### Install and run
 
 1. Download nodeJs/NPM.
